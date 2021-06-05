@@ -1,9 +1,11 @@
 # created at 2021-06-03
-PROJECT=yijuan-client-front
+PROJECT=ffmpeg-alpline
 GIT_PROD_BRANCH="master"
 GIT_DEVELOP_BRANCH="develop"
-DOCKER_REPO_NAMESPACE="mynew5tt"
-DOCEER_REPO_PROVIDER="registry.cn-shenzhen.aliyuncs.com"
+DOCKER_REPO_NAMESPACE="new5tt"
+DOCEER_REPO_PROVIDER="docker.io"
+DOCKER_USERNAME=test
+DOCKER_PASSWORD=test
 DOMAIN=
 
 BUILDTIME=$(shell echo `date +%FT%T%z`)
@@ -24,5 +26,7 @@ docker:buildfile
 	docker build --force-rm --rm --tag $(DOCKER_REPO):"$(VERSION)" .
 
 push:
+	# 登录docker
+	echo $(DOCKER_PASSWORD) | docker login --username $(DOCKER_USERNAME) --password-stdin $(DOCEER_REPO_PROVIDER)
 	$(eval VERSION := $(shell cat buildfile.json | sed 's/,/\n/g' |grep tag  |sed 's/:/\n/g' | sed '1d' | sed 's/"//g' | sed "s/,//g"))
-	@docker push $(DOCKER_REPO):$(VERSION)
+	# @docker push $(DOCKER_REPO):$(VERSION)
