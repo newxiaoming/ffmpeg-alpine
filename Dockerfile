@@ -1,4 +1,4 @@
-FROM mybojiejie/alpine-docker:latest
+FROM new5tt/alpine-docker:latest
 
 LABEL decription="ffmpeg docker"
 
